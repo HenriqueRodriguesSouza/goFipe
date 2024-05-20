@@ -56,6 +56,7 @@ def consultar_veiculos_marca(tabela, tipo_veiculo, marca):
     }
     response = requests.post(url, headers=headers, json=body, verify=False, timeout=20)
     return response
+
 #consultar_veiculos_marca(231, 1, 26)
 
 def consultar_anos_veiculo(tabela, tipo_veiculo, marca, modelo):
