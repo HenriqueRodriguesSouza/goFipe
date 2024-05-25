@@ -106,5 +106,49 @@ class TestChamadaApi(unittest.TestCase):
             print(f'Falha! Tempo médio da chamada final: {round(tempo_medio, 3)} ms')
             self.fail()
 
+
+class TestRetornoFormulario(unittest.TestCase):
+    def test_retorno_formulario(self):
+        formulario = RetornoFormulario.get_tabela()
+        self.assertEqual(formulario[0], (309, 'maio/2024 '))
+
+        formulario2 = RetornoFormulario.get_lista_marcas(231)
+        self.assertEqual(formulario2[0], ('1', 'Acura'))
+
+        formulario3 = RetornoFormulario.get_veiculos(231, 26)
+        self.assertEqual(formulario3[0], (1286, 'Accent GLS 1.5 12V/16V Aut.'))
+
+        formulario4 = RetornoFormulario.get_anos_veiculo(231, 26, 4403)
+        self.assertEqual(formulario4[0][0], ('2011-1', '2011 Gasolina'))
+
+        formulario5 = RetornoFormulario.get_versoes_veiculo(231, 26, "2011-2", 1, 2011)
+        self.assertEqual(formulario5[0], ('5726', 'AZERA 3.0 V6 24V 4p Aut.'))
+
+        formulario6 = RetornoFormulario.consulta_valor(231, 26, "2011-2", 1, 2011, 4403)
+        self.assertEqual(formulario6, ('015069-0', 39225, 'julho de 2018 '))
+
+        print("Teste de retorno dos valores para o formulario realizado com sucesso")
+
+    def test_tamanho_formulario(self):
+        formulario = RetornoFormulario.get_tabela()
+        self.assertEqual(len(formulario[0]), 2)
+
+        formulario2 = RetornoFormulario.get_lista_marcas(231)
+        self.assertEqual(len(formulario2[0]), 2)
+
+        formulario3 = RetornoFormulario.get_veiculos(231, 26)
+        self.assertEqual(len(formulario3[0]), 2)
+
+        formulario4 = RetornoFormulario.get_anos_veiculo(231, 26, 4403)
+        self.assertEqual(len(formulario4[0][0]), 2)
+
+        formulario5 = RetornoFormulario.get_versoes_veiculo(231, 26, "2011-2", 1, 2011)
+        self.assertEqual(len(formulario5[0]), 2)
+
+        formulario6 = RetornoFormulario.consulta_valor(231, 26, "2011-2", 1, 2011, 4403)
+        self.assertEqual(len(formulario6), 3)
+
+        print("Teste da quantidade de informações para o formulario realizado com sucesso")
+
 if __name__ == '__main__':
     unittest.main()
