@@ -1,0 +1,7 @@
+<script> 
+    document.getElementById("id_data_final").disabled = true;
+</script>
+<option value="">Selecione a Fabricante</option>
+{% for marca in marcas %}
+<option value="{{ marca.0 }}">{{ marca.1 }}</option>
+{% endfor %}

@@ -1,0 +1,78 @@
+{% if labels and valores %}
+<script>
+document.getElementById("criarGrafico").style.background='#320a28';
+document.getElementById("criarGrafico").textContent='Criar Grafico';
+document.getElementById("id_versao").disabled = true;
+function addData() {
+    const meses = {{ labels|safe }}
+    const valor = {{ valores|safe }}
+    if (document.getElementById("criarGrafico").textContent === "Grafico criado/Clique aqui para criar um novo grafico"){
+        location.reload();
+        return
+    }
+     for (let i = 0; i < meses.length; i++) {
+        let labelMes = meses[i];
+        let valorVeiculo = valor[i];
+        grafico.data.labels.push(labelMes);
+        grafico.data.datasets.forEach((dataset) => {dataset.data.push(valorVeiculo);});
+        grafico.update();
+     }
+
+
+     document.getElementById("criarGrafico").style.background='#767676';
+     document.getElementById("criarGrafico").textContent='Grafico criado/Clique aqui para criar um novo grafico';
+     {#document.getElementById("criarGrafico").disabled = true;#}
+
+}
+</script>
+{% endif %}
+
+<div style="position: relative; height:40vh; width:40vw">
+  <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  const grafico = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'Valor da Fipe',
+        data: [],
+        borderWidth: 1,
+        borderColor: 'purple'
+      }]
+    },
+    options: {
+      plugins: {
+        datalabels: {
+                anchor: 'center', //'end' or 'start', 'center'
+                align: 'bottom', //'top' or 'bottom'
+                formatter: (value, context) => {
+                    const formattedValue = value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                    return formattedValue;
+                }
+        }
+      },
+      scales: {
+        y: {
+            ticks:{
+                callback: (value, index, values)=> {
+                   return new Intl.NumberFormat('pt-BR', {
+                       style: 'currency',
+                       currency: 'BRL'
+                   }).format(value);
+                }
+            },
+            beginAtZero: true
+        }
+      }
+    },
+    plugins: [ChartDataLabels]
+  });
+</script>
