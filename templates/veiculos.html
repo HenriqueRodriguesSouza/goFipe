@@ -1,0 +1,7 @@
+<script> 
+    document.getElementById("id_marca").disabled = true;
+</script>
+<option value="">Selecione o Veiculo</option>
+{% for veiculo in veiculos %}
+<option value="{{ veiculo.0 }}">{{ veiculo.1 }}</option>
+{% endfor %}

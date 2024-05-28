@@ -1,0 +1,7 @@
+<script>
+    document.getElementById("id_ano_veiculo").disabled = true;
+</script>
+<option value="">Selecione a Versao</option>
+{% for versao in versoes %}
+<option value="{{ versao.0 }}">{{ versao.1 }}</option>
+{% endfor %}

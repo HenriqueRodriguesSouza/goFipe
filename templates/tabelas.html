@@ -1,0 +1,7 @@
+<script> 
+    document.getElementById("id_data_inicial").disabled = true;
+</script>
+<option value="">Data final da busca</option>
+{% for tabela in tabelas %}
+<option value="{{ tabela.0 }}">{{ tabela.1 }}</option>
+{% endfor %}

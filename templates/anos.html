@@ -1,0 +1,7 @@
+<script> 
+    document.getElementById("id_veiculo").disabled = true;
+</script>
+<option value="">Selecione o Ano do Veiculo</option>
+{% for ano in anos %}
+<option value="{{ ano.0 }}">{{ ano.1 }}</option>
+{% endfor %}
